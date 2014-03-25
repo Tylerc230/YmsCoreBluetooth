@@ -119,7 +119,7 @@ typedef void (^YMSCBRetrieveCallbackBlockType)(CBPeripheral *);
  If its value is nil, the central manager dispatches central role events using the main queue.
  @param delegate Delegate of this class instance.
  */
-- (instancetype)initWithKnownPeripheralNames:(NSArray *)nameList queue:(dispatch_queue_t)queue delegate:(id<CBCentralManagerDelegate>) delegate;
+- (instancetype)initWithCentral:(CBCentralManager *)manager knownPeripheralNames:(NSArray *)nameList delegate:(id<CBCentralManagerDelegate>) delegate;
 
 /**
  Constructor with array of known peripheral names.

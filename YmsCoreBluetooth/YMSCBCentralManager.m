@@ -44,13 +44,13 @@ NSString *const YMSCBVersion = @"" kYMSCBVersion;
 
 #pragma mark - Constructors
 
-- (instancetype)initWithKnownPeripheralNames:(NSArray *)nameList queue:(dispatch_queue_t)queue delegate:(id<CBCentralManagerDelegate>) delegate; {
+- (instancetype)initWithCentral:(CBCentralManager *)manager knownPeripheralNames:(NSArray *)nameList delegate:(id<CBCentralManagerDelegate>) delegate; {
     self = [super init];
     
     if (self) {
         _ymsPeripherals = [NSMutableArray new];
         _delegate = delegate;
-        _manager = [[CBCentralManager alloc] initWithDelegate:self queue:queue];
+        _manager = manager;
         _knownPeripheralNames = nameList;
         _discoveredCallback = nil;
         _retrievedCallback = nil;
