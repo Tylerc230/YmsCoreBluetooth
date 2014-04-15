@@ -24,6 +24,7 @@
 #endif
 
 #import "YMSCBUtils.h"
+#import "PeripheralProtocol.h"
 
 // iOS7
 #define kYMSCBVersionNumber 1090
@@ -33,8 +34,8 @@ extern NSString *const YMSCBVersion;
 @class YMSCBPeripheral;
 @class YMSCBCentralManager;
 
-typedef void (^YMSCBDiscoverCallbackBlockType)(CBPeripheral *, NSDictionary *, NSNumber *, NSError *);
-typedef void (^YMSCBRetrieveCallbackBlockType)(CBPeripheral *);
+typedef void (^YMSCBDiscoverCallbackBlockType)(id<PeripheralProtocol>, NSDictionary *, NSNumber *, NSError *);
+typedef void (^YMSCBRetrieveCallbackBlockType)(id<PeripheralProtocol>);
 
 /**
  Base class for defining a Bluetooth LE central.
@@ -142,7 +143,7 @@ typedef void (^YMSCBRetrieveCallbackBlockType)(CBPeripheral *);
  @return YES is peripheral is to be managed by this app service.
  */
 
-- (BOOL)isKnownPeripheral:(CBPeripheral *)peripheral;
+- (BOOL)isKnownPeripheral:(id<PeripheralProtocol>)peripheral;
 
 
 /**
@@ -150,7 +151,7 @@ typedef void (^YMSCBRetrieveCallbackBlockType)(CBPeripheral *);
 
  @param peripheral CoreBluetooth peripheral instance
  */
-- (void)handleFoundPeripheral:(CBPeripheral *)peripheral;
+- (void)handleFoundPeripheral:(id<PeripheralProtocol>)peripheral;
 
 /**
  Returns the YSMCBPeripheral instance from ymsPeripherals at index.
@@ -187,7 +188,7 @@ typedef void (^YMSCBRetrieveCallbackBlockType)(CBPeripheral *);
  @param peripheral peripheral corresponding with YMSCBPeripheral
  @return instance of YMSCBPeripheral
  */
-- (YMSCBPeripheral *)findPeripheral:(CBPeripheral *)peripheral;
+- (YMSCBPeripheral *)findPeripheral:(id<PeripheralProtocol>)peripheral;
 
 #pragma mark - Scan Methods
 /** @name Scanning for Peripherals */
@@ -225,7 +226,7 @@ typedef void (^YMSCBRetrieveCallbackBlockType)(CBPeripheral *);
  * `error` - The cause of a failure, if any.
  
  */
-- (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options withBlock:(void (^)(CBPeripheral *peripheral, NSDictionary *advertisementData, NSNumber *RSSI, NSError *error))discoverCallback;
+- (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options withBlock:(void (^)(id<PeripheralProtocol> peripheral, NSDictionary *advertisementData, NSNumber *RSSI, NSError *error))discoverCallback;
 
 
 /**

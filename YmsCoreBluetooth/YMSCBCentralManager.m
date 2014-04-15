@@ -166,7 +166,7 @@ NSString *const YMSCBVersion = @"" kYMSCBVersion;
 }
 
 
-- (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options withBlock:(void (^)(CBPeripheral *, NSDictionary *, NSNumber *, NSError *))discoverCallback {
+- (void)scanForPeripheralsWithServices:(NSArray *)serviceUUIDs options:(NSDictionary *)options withBlock:(void (^)(id<PeripheralProtocol>, NSDictionary *, NSNumber *, NSError *))discoverCallback {
     self.discoveredCallback = discoverCallback;
     
     [self scanForPeripheralsWithServices:serviceUUIDs options:options];
@@ -179,7 +179,7 @@ NSString *const YMSCBVersion = @"" kYMSCBVersion;
 }
 
 
-- (YMSCBPeripheral *)findPeripheral:(CBPeripheral *)peripheral {
+- (YMSCBPeripheral *)findPeripheral:(id<PeripheralProtocol>)peripheral {
     
     YMSCBPeripheral *result = nil;
     NSArray *peripheralsCopy = [NSArray arrayWithArray:self.ymsPeripherals];
@@ -196,7 +196,7 @@ NSString *const YMSCBVersion = @"" kYMSCBVersion;
 
 
 
-- (void)handleFoundPeripheral:(CBPeripheral *)peripheral {
+- (void)handleFoundPeripheral:(id<PeripheralProtocol>)peripheral {
     /*
      * THIS METHOD IS TO BE OVERRIDDEN
      */
@@ -348,7 +348,7 @@ NSString *const YMSCBVersion = @"" kYMSCBVersion;
 }
 
 
-- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(CBPeripheral *)peripheral {
+- (void)centralManager:(CBCentralManager *)central didConnectPeripheral:(id<PeripheralProtocol>)peripheral {
     __weak YMSCBCentralManager *this = self;
     _YMS_PERFORM_ON_MAIN_THREAD(^{
         YMSCBPeripheral *yp = [this findPeripheral:peripheral];
@@ -362,7 +362,7 @@ NSString *const YMSCBVersion = @"" kYMSCBVersion;
 }
 
 
-- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(CBPeripheral *)peripheral error:(NSError *)error {
+- (void)centralManager:(CBCentralManager *)central didDisconnectPeripheral:(id<PeripheralProtocol>)peripheral error:(NSError *)error {
     __weak YMSCBCentralManager *this = self;
     _YMS_PERFORM_ON_MAIN_THREAD(^{
         YMSCBPeripheral *yp = [this findPeripheral:peripheral];

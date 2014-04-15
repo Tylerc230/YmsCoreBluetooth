@@ -27,7 +27,7 @@
 
 @implementation YMSCBPeripheral
 
-- (instancetype)initWithPeripheral:(CBPeripheral *)peripheral
+- (instancetype)initWithPeripheral:(id<PeripheralProtocol>)peripheral
                            central:(YMSCBCentralManager *)owner
                             baseHi:(int64_t)hi
                             baseLo:(int64_t)lo {

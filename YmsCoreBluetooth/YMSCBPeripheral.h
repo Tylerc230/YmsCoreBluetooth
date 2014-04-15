@@ -24,6 +24,7 @@
 #endif
 
 #include "YMSCBUtils.h"
+#import "PeripheralProtocol.h"
 
 @class YMSCBPeripheral;
 @class YMSCBCentralManager;
@@ -75,7 +76,7 @@ typedef void (^YMSCBPeripheralDiscoverServicesBlockType)(NSArray *, NSError *);
 @property (nonatomic, strong) NSDictionary *serviceDict;
 
 /// The CBPeripheral instance.
-@property (nonatomic, strong) CBPeripheral *cbPeripheral;
+@property (nonatomic, strong) id<PeripheralProtocol> cbPeripheral;
 
 /**
  A Boolean value indicating whether the peripheral is currently connected to the central manager. (read-only)
@@ -138,7 +139,7 @@ typedef void (^YMSCBPeripheralDiscoverServicesBlockType)(NSArray *, NSError *);
  @param lo Bottom 64 bits of 128-bit base address value
  @return instance of this class
  */
-- (instancetype)initWithPeripheral:(CBPeripheral *)peripheral
+- (instancetype)initWithPeripheral:(id <PeripheralProtocol>)peripheral
                            central:(YMSCBCentralManager *)owner
                             baseHi:(int64_t)hi
                             baseLo:(int64_t)lo;
